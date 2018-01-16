@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Chat Quotes!</title>
+	</head>
+	<body>
+		{% for quote in quotes %}
+		        #<i>{{ quote.id }}</i>
+			<pre>{{ quote.content }}</pre>
+		{% endfor %}
+	</body>
+</html>
