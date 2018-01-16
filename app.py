@@ -2,7 +2,6 @@ import os
 
 from django_micro import configure, route, run, get_app_label
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.db import models
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
