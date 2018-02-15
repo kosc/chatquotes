@@ -7,7 +7,12 @@ mkdir migrations
 touch migrations/__init__.py
 python app.py makemigrations
 python app.py migrate
+python app.py createsuperuser # to create admin user
 ```
+
+## Add Quotes
+You can add quotes in admin interface - just go to http://127.0.0.1:8000/admin/
+
 ## Running
 ```sh
 python app.py runserver
