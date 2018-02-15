@@ -4,7 +4,12 @@ Simple quote engine in django
 ## Starting configuration
 ```sh
 python app.py migrate
+python app.py createsuperuser # to create admin user
 ```
+
+## Add Quotes
+You can add quotes in admin interface - just go to http://127.0.0.1:8000/admin/
+
 ## Running
 ```sh
 python app.py runserver
