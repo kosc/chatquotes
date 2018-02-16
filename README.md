@@ -3,6 +3,7 @@ Simple quote engine in django
 
 ## Starting configuration
 ```sh
+pip install -r requirements.txt
 python app.py migrate
 python app.py createsuperuser # to create admin user
 ```
