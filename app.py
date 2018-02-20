@@ -6,13 +6,19 @@ from django.shortcuts import render
 from django.db import models
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DEBUG = True
+DEBUG = False if os.environ.get('DEBUG') == 'False' else True
+if not DEBUG:
+    ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST', 'quotes.hotkosc.ru')]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ.get(
+            'DATABASE_PATH',
+            os.path.join(BASE_DIR, 'db.sqlite3'),
+        )
     },
 }
+
 configure(locals(), django_admin=True)
 
 class Quote(models.Model):
@@ -32,5 +38,5 @@ def homepage(request):
     return render(request, 'base.html', {'quotes': quotes})
 
 
-route('admin/', admin.site.urls)
+route(os.environ.get('ADMIN_PATH', 'admin/'), admin.site.urls)
 application = run()
