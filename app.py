@@ -18,6 +18,7 @@ DATABASES = {
         )
     },
 }
+STATIC_ROOT = 'static/'
 
 configure(locals(), django_admin=True)
 
