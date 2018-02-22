@@ -36,7 +36,7 @@ class QuoteAdmin(admin.ModelAdmin):
 
 @route('')
 def homepage(request):
-    quotes = Quote.objects.all()
+    quotes = Quote.objects.all().reverse()
     return render(request, 'base.html', {'quotes': quotes})
 
 
