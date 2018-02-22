@@ -36,7 +36,7 @@ class QuoteAdmin(admin.ModelAdmin):
 
 @route('')
 def homepage(request):
-    quotes = Quote.objects.all().reverse()
+    quotes = Quote.objects.order_by('pk').reverse()
     return render(request, 'base.html', {'quotes': quotes})
 
 
