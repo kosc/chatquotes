@@ -1,6 +1,7 @@
 import os
 
 from django_micro import configure, route, run, get_app_label
+from django.conf.urls import include
 from django.contrib import admin
 from django.shortcuts import render
 from django.db import models
@@ -18,10 +19,13 @@ DATABASES = {
         )
     },
 }
+INSTALLED_APPS = ['rest_framework',]
 STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
 
 configure(locals(), django_admin=True)
+from rest_framework import routers, serializers, viewsets, permissions
+
 
 class Quote(models.Model):
     content = models.TextField()
@@ -30,9 +34,25 @@ class Quote(models.Model):
         app_label = get_app_label()
 
 
+class QuoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quote
+        fields = ('content',)
+
+
+class QuoteViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
+
+router = routers.DefaultRouter()
+router.register(r'quotes', QuoteViewSet)
+
+
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
     pass
+
 
 @route('')
 def homepage(request):
@@ -40,5 +60,6 @@ def homepage(request):
     return render(request, 'base.html', {'quotes': quotes})
 
 
+route(r'api/', include(router.urls))
 route(os.environ.get('ADMIN_PATH', 'admin/'), admin.site.urls)
 application = run()
