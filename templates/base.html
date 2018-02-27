@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		{% for quote in quotes %}
-		        #<i>{{ quote.id }}</i>
+            <a href="/quotes/{{ quote.id }}">#<i>{{ quote.id }}</i></a>
 			<pre>{{ quote.content }}</pre>
 		{% endfor %}
 	</body>

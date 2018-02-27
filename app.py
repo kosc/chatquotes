@@ -60,6 +60,12 @@ def homepage(request):
     return render(request, 'base.html', {'quotes': quotes})
 
 
+@route('quotes/<int:quote>')
+def get_quote(request, quote):
+    quote = Quote.objects.get(pk=quote)
+    return render(request, 'base.html', {'quotes': [quote]})
+
+
 route(r'api/', include(router.urls))
 route(os.environ.get('ADMIN_PATH', 'admin/'), admin.site.urls)
 application = run()
