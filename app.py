@@ -25,6 +25,7 @@ STATIC_URL = '/static/'
 
 configure(locals(), django_admin=True)
 from rest_framework import routers, serializers, viewsets, permissions
+from rest_framework.response import Response
 
 
 class Quote(models.Model):
@@ -44,6 +45,14 @@ class QuoteViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
+
+    def retrieve(self, request, pk=None):
+        if pk == 'random':
+            quote = Quote.objects.order_by('?').first()
+            serializer = QuoteSerializer(quote)
+            return Response(serializer.data)
+        else:
+            super(QuoteViewSet, self).retrieve(request, pk)
 
 router = routers.DefaultRouter()
 router.register(r'quotes', QuoteViewSet)
