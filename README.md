@@ -16,7 +16,3 @@ You can add quotes in admin interface - just go to http://127.0.0.1:8000/admin/
 python app.py runserver
 ```
 And go to localhost:8000.
-
-## Demo site
-Demo site of chatquotes hosted at https://chatquotes.hotkosc.ru  
-Sorry, but most quotes here will be in russian.
